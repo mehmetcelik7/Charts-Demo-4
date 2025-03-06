@@ -8,11 +8,36 @@
 import SwiftUI
 
 struct TitleAlignmentButton: View {
+    @Binding var titleAlignment: HorizontalAlignment
+    
+    
+    
+    let selectedOpacity = 1.0
+    let deSelectedOpacity = 0.3
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+       
+        VStack(spacing: 5) {
+            
+            SimpleTitleButtonView(titleAlignment: $titleAlignment, myAlignment: .leading, iconName: "align.horizontal.left.fill")
+            
+                
+            SimpleTitleButtonView(titleAlignment: $titleAlignment, myAlignment: .center, iconName: "align.horizontal.center.fill")
+            
+            SimpleTitleButtonView(titleAlignment: $titleAlignment, myAlignment: .trailing, iconName: "align.horizontal.right.fill")
+           
+            
+        }
+        .padding(5)
+        .overlay(
+            RoundedRectangle(cornerRadius: 5)
+                .stroke(lineWidth: 0.3)
+        )
+        
+        
     }
 }
 
+
 #Preview {
-    TitleAlignmentButton()
+    TitleAlignmentButton(titleAlignment: .constant(.center))
 }

@@ -8,11 +8,39 @@
 import SwiftUI
 
 struct RightChartButtonView: View {
+    @Binding var barColors: [Color]
+    @Binding var chartType: ChartType
+    @Binding var isVerticalChart : Bool
+    @Binding var titleAlignment: HorizontalAlignment
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 50){
+        
+            Button(action: {
+                withAnimation {
+                    isVerticalChart.toggle()
+                }
+            }, label: {
+                Image(systemName: "chart.bar.fill")
+                    .rotationEffect(.degrees(isVerticalChart ?  90 : 0))
+                    .foregroundColor(.black)
+                    .opacity(0.7)
+            })
+            
+            
+            TitleAlignmentButton(titleAlignment: $titleAlignment)
+        }
+        .padding()
     }
 }
 
 #Preview {
-    RightChartButtonView()
+    HStack {
+        Spacer()
+        RightChartButtonView(
+            barColors: .constant(defaultBarColors),
+            chartType: .constant(.bar),
+            isVerticalChart: .constant(true), titleAlignment: .constant(.center)
+        )
+        
+    }
 }

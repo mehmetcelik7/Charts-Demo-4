@@ -8,11 +8,29 @@
 import SwiftUI
 
 struct SimpleTitleButtonView: View {
+    @Binding var titleAlignment: HorizontalAlignment
+    let myAlignment: HorizontalAlignment
+    let iconName: String
+    let selectedOpacity = 1.0
+    let deSelectedOpacity = 0.3
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button(action: {
+            withAnimation {
+                titleAlignment = myAlignment
+            }
+        }, label: {
+            Image(systemName:iconName)
+                .foregroundColor(.black)
+                .opacity(titleAlignment == myAlignment ? selectedOpacity : deSelectedOpacity)
+        })
     }
 }
 
+
 #Preview {
-    SimpleTitleButtonView()
+    VStack(spacing: 50) {
+        SimpleTitleButtonView(titleAlignment: .constant(.center), myAlignment: .center, iconName: "align.horizontal.center.fill")
+        SimpleTitleButtonView(titleAlignment: .constant(.center), myAlignment: .leading, iconName: "align.horizontal.left.fill")
+      
+    }
 }

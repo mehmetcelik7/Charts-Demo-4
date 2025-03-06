@@ -15,8 +15,7 @@ struct LeftChartButtonsView: View {
     var body: some View {
         VStack{
         
-            ColorfulButtonView(colors: $barColors, dim: 30,
-                          offset: 10, action:  {   })
+           
                               
                               
             Spacer()
@@ -26,6 +25,8 @@ struct LeftChartButtonsView: View {
                 }
             }, label: {
                 Text("Bar")
+                    .font(.title)
+
             })
             Spacer()
             Button(action: {
@@ -34,6 +35,8 @@ struct LeftChartButtonsView: View {
                 }
             }, label: {
                 Text("Line")
+                    .font(.title)
+
             })
             Spacer()
             Button(action: {
@@ -42,16 +45,14 @@ struct LeftChartButtonsView: View {
                 }
             }, label: {
                 Text("Area")
+                    .font(.title)
+
             })
             Spacer()
-            Button(action: {
-                withAnimation {
-                    isVerticalChart.toggle()
-                }
-            }, label: {
-                Image(systemName: "chart.bar.fill")
-                    .rotationEffect(.degrees(isVerticalChart ?  90 : 0))
-            })
+            
+            ColorfulButtonView(colors: $barColors, dim: 49,
+                          offset: 10, action:  {   })
+
         }
         .padding()
     }
@@ -67,5 +68,4 @@ struct LeftChartButtonsView: View {
         Spacer()
         
     }
-    .previewInterfaceOrientation(.landscapeRight)
 }
