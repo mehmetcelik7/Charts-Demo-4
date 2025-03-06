@@ -12,65 +12,85 @@ enum ChartType {
     case bar, line, area
 }
 
+
+
 struct ContentView: View {
     
-    let dailySales: [DailySalesType]
-    let min: Double
-    let max: Double
-    @State var barColors: [Color] = defaultBarColors
-
+    @State var chartItem: ChartItem = .defaultChartItem
+    
     let xAxisMarkPosition: AxisMarkPosition = .bottom
     let yAxisMarkPosition: AxisMarkPosition = .leading
-    @State private var isVerticalChart = true
-    
-    @State private var chartType: ChartType = .line
-    @State var title = "Chart Title"
-    @State var titleAlignment: HorizontalAlignment = .leading
+
     var body: some View {
         VStack{
+            
+            HStack {
+                Button(action: {
+                    withAnimation {
+                        chartItem.editMode.toggle()
+                    }
+                }, label: {
+                    Image(systemName:  chartItem.editMode ? "checkmark" :"square.and.pencil")
+                })
+               
+                if !chartItem.editMode {
+                    Spacer()
+                    Button(action: {
+                        withAnimation {
+                            //TODO: Sharing
+                        }
+                    }, label: {
+                        Image(systemName: "square.and.arrow.up" )
+                    })
+                }
+            }
            
             
             
             HStack {
                 
-                LeftChartButtonsView(
-                    barColors: $barColors,
-                    chartType: $chartType,
-                    isVerticalChart: $isVerticalChart
-                )
+                if  chartItem.editMode{
+                    LeftChartButtonsView(
+                        chartItem: $chartItem
+                    )
+                }
+            
                 
-                VStack(alignment: titleAlignment){
-                    Text(title)
+                VStack(alignment: chartItem.titleAlignment){
+                    Text(chartItem.title)
                     .font(.headline)
                     .fontWeight(.semibold)
                     .padding(.vertical)
-                    if isVerticalChart {
+                    if chartItem.isVerticalChart {
                                    
-                      switch(chartType) {
+                        switch(chartItem.chartType) {
                         case .bar:
-                          BarChartVerticalView(dailySales: dailySales, barColors: barColors)
+                          BarChartVerticalView(chartItem: $chartItem)
                         case .line:
-                         LineChartVerticalView(dailySales: dailySales)
+                            LineChartVerticalView(chartItem: $chartItem)
                         case .area:
-                         AreaChartVerticalView(dailySales: dailySales)
+                         AreaChartVerticalView(chartItem: $chartItem)
                                    }
                                    
                                    
                     }else{
-                       switch(chartType) {
+                        switch(chartItem.chartType) {
                           case .bar:
-                          BarChartHorizontalView(dailySales: dailySales, barColors: barColors)
+                          BarChartHorizontalView(chartItem: $chartItem)
                                        
                           case .line:
-                          LineChartHorizontalView(dailySales: dailySales)
+                          LineChartHorizontalView(chartItem: $chartItem)
                           case .area:
-                           AreaChartHorizontalView(dailySales: dailySales)
+                           AreaChartHorizontalView(chartItem: $chartItem)
                                    }
                                }
                 }
                 
-                
-                RightChartButtonView(barColors: $barColors, chartType: $chartType, isVerticalChart: $isVerticalChart, titleAlignment: $titleAlignment)
+                if chartItem.editMode {
+                    
+                    RightChartButtonView(chartItem: $chartItem)
+                }
+               
             }
             
 //            Chart {
@@ -114,5 +134,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(dailySales: defaultDailySales, min: 0.0, max: 700.0)
+    ContentView()
 }

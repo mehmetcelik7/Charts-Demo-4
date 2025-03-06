@@ -16,6 +16,7 @@ struct AreaChartVerticalView: View {
                 AreaMark(x: .value("Day", item.day),
                        y:  .value("Sales", item.sales))
             }
+            
         }
     }
 }
