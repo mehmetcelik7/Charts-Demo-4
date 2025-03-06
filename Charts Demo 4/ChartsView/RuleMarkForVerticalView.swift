@@ -9,9 +9,15 @@ import SwiftUI
 import Charts
 
 struct RuleMarkForVerticalView: ChartContent {
-    let selectedDay: String
+    let chartItem: ChartItem
     let salesOnSelectedDay: Double
-    let intMode: Bool
+
+    var selectedDay: String {
+        chartItem.selectedDay
+    }
+    var intMode: Bool {
+        chartItem.intMode
+    }
     var precision: Int {
         intMode ? 0 : 1
     }
