@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct RuleMarkView: ChartContent {
+struct RuleMarkForVerticalView: ChartContent {
     let selectedDay: String
     let salesOnSelectedDay: Double
     let intMode: Bool
