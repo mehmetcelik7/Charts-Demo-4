@@ -62,28 +62,24 @@ struct ContentView: View {
                     .fontWeight(.semibold)
                     .padding(.vertical)
                     if chartItem.isVerticalChart {
-                                   
+                        
                         switch(chartItem.chartType) {
                         case .bar:
-                          BarChartVerticalView(chartItem: $chartItem)
-                        case .line:
-                            LineChartVerticalView(chartItem: $chartItem)
-                        case .area:
-                         AreaChartVerticalView(chartItem: $chartItem)
-                                   }
-                                   
-                                   
+                            BarChartVerticalView(chartItem: $chartItem)
+                        case .line, .area:
+                            LineAreaChartVerticalView(chartItem: $chartItem)
+                        }
+                        
                     }else{
                         switch(chartItem.chartType) {
                           case .bar:
                           BarChartHorizontalView(chartItem: $chartItem)
                                        
-                          case .line:
-                          LineChartHorizontalView(chartItem: $chartItem)
-                          case .area:
-                           AreaChartHorizontalView(chartItem: $chartItem)
-                                   }
-                               }
+                        case .line, .area:
+                            LineAreaChartHorizontalView(chartItem: $chartItem)
+                          
+                      }
+                   }
                 }
                 
                 if chartItem.editMode {
