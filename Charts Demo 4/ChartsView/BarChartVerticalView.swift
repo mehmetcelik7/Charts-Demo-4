@@ -58,44 +58,8 @@ struct BarChartVerticalView: View {
         
         .chartForegroundStyleScale(range: chartItem.barColors)
         .chartYScale(domain: min...max)
-        .chartOverlay {
-            proxy in
-            GeometryReader {
-                innerProxy in
-                Rectangle()
-                    .fill(innerProxyColor)
-                    .contentShape(Rectangle())
-                    .gesture(
-                        DragGesture()
-                            .onChanged { value in
-                                if chartItem.editMode {
-                                    isDragging = true
-                                    
-                                    let location = value.location
-                                    let (newDay, sales) = proxy.value(at: location, as: (String,Double).self) ?? ("error",-1)
-                                    
-                                    chartItem.selectedDay = newDay
-                                    print(newDay)
-                                    print(sales)
-                                    
-                                    setSalesOfSelectedDay(
-                                        dailySales: &chartItem.dailySales,
-                                        selectedDay: chartItem.selectedDay,
-                                        sales: sales,
-                                        min: min,
-                                        max: max
-                                    )
-                                    
-                                }
-                            }
-                            .onEnded({ value in
-                             
-                                isDragging = false
-                                
-                            })
-                    )
-            }
-        }
+        .modifier(ChartDragForVerticalView(chartItem: $chartItem, isDragging: $isDragging))
+        
     }
 }
 

@@ -15,7 +15,7 @@ struct BarChartHorizontalView: View {
     var max: Double {
         chartItem.max
     }
-    let innerProxyColor: Color = .black.opacity(0.2)
+ 
     @State var isDragging: Bool = false
 
     var salesOnSelectedDay: Double {
@@ -37,44 +37,7 @@ struct BarChartHorizontalView: View {
         }
         .chartForegroundStyleScale(range: chartItem.barColors)
         chartXScale(domain: min...max)
-            .chartOverlay {
-                proxy in
-                GeometryReader {
-                    innerProxy in
-                    Rectangle()
-                        .fill(innerProxyColor)
-                        .contentShape(Rectangle())
-                        .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    if chartItem.editMode {
-                                        isDragging = true
-                                        
-                                        let location = value.location
-                                        let (sales,newDay) = proxy.value(at: location, as: (Double,String).self) ?? (-1,"error")
-                                        
-                                        chartItem.selectedDay = newDay
-                                        print(newDay)
-                                        print(sales)
-                                        
-                                        setSalesOfSelectedDay(
-                                            dailySales: &chartItem.dailySales,
-                                            selectedDay: chartItem.selectedDay,
-                                            sales: sales,
-                                            min: min,
-                                            max: max
-                                        )
-                                        
-                                    }
-                                }
-                                .onEnded({ value in
-                                 
-                                    isDragging = false
-                                    
-                                })
-                        )
-                }
-            }
+            .modifier(ChartDragForHorizontalView(chartItem: $chartItem, isDragging: $isDragging))
 
     }
 }

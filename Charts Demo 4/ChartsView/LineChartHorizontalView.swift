@@ -8,17 +8,41 @@
 import SwiftUI
 import Charts
 struct LineChartHorizontalView: View {
-    let dailySales: [DailySalesType]
+    @Binding var chartItem: ChartItem
+    var min: Double {
+        chartItem.min
+    }
+    var max: Double {
+        chartItem.max
+    }
+    
+    @State var isDragging: Bool = false
+    var salesOnSelectedDay: Double {
+        getSalesOfSelectedDay(
+            dailySales: chartItem.dailySales,
+            selectedDay: chartItem.selectedDay
+        )
+    }
+    
     var body: some View {
         Chart {
-            ForEach(dailySales) { item in
+            ForEach(chartItem.dailySales) { item in
                 LineMark(x: .value("Sales", item.sales),
                        y:  .value("Day", item.day))
+                .foregroundStyle(chartItem.lineAreaColor)
+                .symbol(){
+                    Annotate_Line_Area_Graph(charItem: chartItem)
+                }
+            }
+            if isDragging {
+                RuleMarkForHorizontalView(chartItem: chartItem, salesOnSelectedDay: salesOnSelectedDay)
             }
         }
+        chartXScale(domain: min...max)
+            .modifier(ChartDragForHorizontalView(chartItem: $chartItem, isDragging: $isDragging))
     }
 }
 
 #Preview {
-    LineChartHorizontalView(dailySales: defaultDailySales)
+    LineChartHorizontalView(chartItem: .constant(.defaultChartItem))
 }
