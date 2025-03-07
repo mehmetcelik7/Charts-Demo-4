@@ -35,7 +35,7 @@ struct ChartDragForVerticalView: ViewModifier {
                                         isDragging = true
                                         
                                         let location = value.location
-                                        let (sales,newDay) = proxy.value(at: location, as: (Double,String).self) ?? (-1,"error")
+                                        let (newDay,sales) = proxy.value(at: location, as: (String,Double).self) ?? ("Error",-1)
                                         
                                         chartItem.selectedDay = newDay
                                         print(newDay)

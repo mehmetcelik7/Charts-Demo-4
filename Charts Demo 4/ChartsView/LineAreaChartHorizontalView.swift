@@ -30,8 +30,8 @@ struct LineAreaChartHorizontalView: View {
                 
                 
                 if chartItem.chartType == .area {
-                    AreaMark(x: .value("Day", item.day),
-                           y:  .value("Sales", item.sales))
+                    AreaMark(x: .value("Sales", item.sales),
+                           y: .value("Day", item.day) )
                     .foregroundStyle(chartItem.lineAreaColor
                         .opacity(0.3))
                 }
