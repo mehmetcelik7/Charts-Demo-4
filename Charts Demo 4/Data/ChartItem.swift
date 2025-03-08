@@ -21,19 +21,23 @@ struct ChartItem: Identifiable {
     var isVerticalChart: Bool
     var intMode: Bool
     var lineAreaColor: Color
+    var showBorder: Bool
     
     static let defaultChartItem: ChartItem = .init(
         dailySales: defaultDailySales,
         barColors: defaultBarColors,
-        editMode: true,
+        editMode: false,
         selectedDay: "Wed",
         min: 0,
         max: 1000,
         title: "Happy New Year",
         titleAlignment: .leading,
         chartType: .bar,
-        isVerticalChart: true, intMode: true,
-        lineAreaColor: .purple
+        isVerticalChart: true,
+        intMode: true,
+        lineAreaColor: .purple,
+        showBorder: true
+    
     )
 }
 

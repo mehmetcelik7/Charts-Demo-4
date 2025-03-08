@@ -51,8 +51,9 @@ struct LeftChartButtonsView: View {
             })
             Spacer()
             
-            ColorfulButtonView(colors: $chartItem.barColors, dim: 49,
-                          offset: 10, action:  {   })
+            ColorfulButtonView(chartItem: $chartItem,
+                               dim: 49,
+                               offset: 10, action:  {   })
 
         }
         .padding()

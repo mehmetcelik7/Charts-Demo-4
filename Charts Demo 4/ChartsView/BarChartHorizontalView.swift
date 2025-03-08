@@ -36,7 +36,7 @@ struct BarChartHorizontalView: View {
             }
         }
         .chartForegroundStyleScale(range: chartItem.barColors)
-        chartXScale(domain: min...max)
+        .chartXScale(domain: min...max)
             .modifier(ChartDragForHorizontalView(chartItem: $chartItem, isDragging: $isDragging))
 
     }

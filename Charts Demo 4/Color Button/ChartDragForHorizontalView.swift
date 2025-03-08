@@ -38,9 +38,11 @@ struct ChartDragForHorizontalView: ViewModifier {
                                         let location = value.location
                                         let (sales,newDay) = proxy.value(at: location, as: (Double,String).self) ?? (-1,"error")
                                         
-                                        chartItem.selectedDay = newDay
+                                
                                         print(newDay)
                                         print(sales)
+                                        
+                                        chartItem.selectedDay = newDay
                                         
                                         setSalesOfSelectedDay(
                                             dailySales: &chartItem.dailySales,

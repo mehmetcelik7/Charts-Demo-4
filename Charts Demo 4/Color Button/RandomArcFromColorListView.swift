@@ -14,7 +14,7 @@
         let minRadius: CGFloat
         let maxRadius: CGFloat
         let opacity: CGFloat
-        let startTrim = Double.random(in: 0...0.5)
+        let startTrim = 0.0
         let endTrim = 1.0
         
         
@@ -36,7 +36,7 @@
         }
         
         var rotate: CGFloat {
-            Double.random(in: 0...360)
+            0.0
         }
         
         

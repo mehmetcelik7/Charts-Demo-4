@@ -50,7 +50,7 @@ struct LineAreaChartVerticalView: View {
             }
 
         }
-        chartYScale(domain: min...max)
+        .chartYScale(domain: min...max)
             .modifier(ChartDragForVerticalView(chartItem: $chartItem, isDragging: $isDragging))
     }
 }

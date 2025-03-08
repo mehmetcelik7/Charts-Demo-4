@@ -48,7 +48,7 @@ struct LineAreaChartHorizontalView: View {
                 RuleMarkForHorizontalView(chartItem: chartItem, salesOnSelectedDay: salesOnSelectedDay)
             }
         }
-        chartXScale(domain: min...max)
+        .chartXScale(domain: min...max)
             .modifier(ChartDragForHorizontalView(chartItem: $chartItem, isDragging: $isDragging))
     }
 }
